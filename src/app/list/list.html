@@ -1,0 +1,13 @@
+<div class="pokemon-list">
+    <h3>Pokémon List</h3>
+    <button (click)="load()">Load Pokémon</button>
+    
+    <p *ngIf="loading" >Loading...</p>
+    <p *ngIf="error"  class="error">{{ error }}</p>
+    
+    <ng-container *ngIf="listBehaviour.listData$ | async as pokemon">
+        <ul *ngIf="pokemon.length > 0">
+            <li *ngFor="let p of pokemon">{{ p.name }}</li>
+        </ul>
+    </ng-container>
+</div>

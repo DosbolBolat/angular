@@ -1,14 +1,14 @@
 <div class="container">
-  <!-- 1) Interpolation -->
+  
   <h1>{{ title }}</h1>
   <p class="mission">{{ mission }}</p>
 
-  <!-- 2) Property binding -->
+  
   <section class="team">
     <img [src]="photoUrl" [attr.alt]="title" width="320" />
     <p [class.highlight]="likes >= 5">Likes: {{ likes }}</p>
 
-    <!-- 3) Event binding -->
+    
     <button (click)="like()">Like 👍</button>
     <button (click)="resetLikes()" [disabled]="likes === 0">Reset</button>
   </section>
@@ -20,7 +20,7 @@
     <p *ngIf="showThanks" class="thanks">Thank you for visiting!</p>
   </section>
 
-  <!-- 4) Two-way binding -->
+  
   <section class="form-section">
     <label>
       Ваше имя:
@@ -35,4 +35,8 @@
     <button (click)="subscribe()" [disabled]="!email">Subscribe</button>
     <p *ngIf="subscribedMessage">{{ subscribedMessage }}</p>
   </section>
+
+  <hr />
+  <app-list></app-list>
+
 </div>
