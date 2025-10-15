@@ -1,44 +1,56 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { finalize } from 'rxjs/operators';
-import { ListBehaviour } from './list-behaviour';
+import { BehaviorSubject, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-list',
   standalone: true,
   imports: [CommonModule, HttpClientModule],
   templateUrl: './list.html',
-  styleUrl: './list.css'
+  styleUrls: ['./list.css']
 })
-export class ListComponent {
+export class ListComponent implements OnInit, OnDestroy {
   loading = false;
   error = '';
+  private subscription?: Subscription;
 
-  constructor(
-    private http: HttpClient,
-    public listBehaviour: ListBehaviour
-  ) {}
+  allPokemon: any[] = [];  
+  listBehaviour = new BehaviorSubject<any[]>([]);
+
+  constructor(private http: HttpClient) {}
+
+  ngOnInit() {}
+
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
+  }
 
   load() {
-    if (this.listBehaviour.ListData.length > 0) {
-      return;
-    }
-
     this.loading = true;
-    this.http.get<any>('https://pokeapi.co/api/v2/pokemon?limit=20')
-    .pipe(
-      finalize(() => this.loading = false)
-    )
-    .subscribe({
+    this.error = '';
+    this.http.get<any>('https://pokeapi.co/api/v2/pokemon?limit=100')
+      .pipe(finalize(() => this.loading = false))
+      .subscribe({
         next: (res) => {
-          this.listBehaviour.setListData(res.results);
+          this.allPokemon = res.results;
+          this.listBehaviour.next(this.allPokemon);
         },
         error: () => {
-          this.error = 'Ошибка загрузки данных';
+          this.error = 'Ошибка загрузки';
         }
       });
   }
+
+  onSearch(query: string) {
+    const text = query.toLowerCase().trim();
+    if (text === '') {
+      this.listBehaviour.next(this.allPokemon);
+    } else {
+      this.listBehaviour.next(
+        this.allPokemon.filter(p => p.name.toLowerCase().includes(text))
+      );
+    }
+  }
 }
-
-

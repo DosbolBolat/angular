@@ -1,48 +1,87 @@
-.list-card {
-  margin-top: 1.5rem;
-  padding: 1rem;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background: #fff;
+.pokemon-list {
   max-width: 400px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  font-family: Arial, sans-serif;
 }
 
-button {
-  padding: 0.4rem 0.8rem;
-  border-radius: 6px;
+.pokemon-list h3 {
+  text-align: center;
+  margin-bottom: 15px;
+  color: #2c3e50;
+}
+
+.search-box {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.search-box input:focus {
+  border-color: #3498db;
+  outline: none;
+}
+
+.load-btn {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0 15px;
+  background: #3498db;
   border: none;
-  background: #3b82f6;
   color: white;
+  font-size: 14px;
+  border-radius: 8px;
   cursor: pointer;
-  margin-top: 0.5rem;
+  transition: 0.3s;
 }
 
-button[disabled] {
-  background: #9ca3af;
-  cursor: not-allowed;
+.load-btn:hover {
+  background: #2980b9;
 }
 
 ul {
   list-style: none;
   padding: 0;
-  margin-top: 1rem;
 }
 
 li {
-  padding: 0.5rem;
-  border-bottom: 1px solid #eee;
+  padding: 10px;
+  margin: 5px 0;
+  background: #ecf0f1;
+  border-radius: 6px;
+  transition: 0.3s;
 }
 
-li:nth-child(odd) {
-  background: #f9fafb;
+li:hover {
+  background: #d6eaf8;
+}
+
+.loading {
+  text-align: center;
+  color: #2980b9;
 }
 
 .error {
+  text-align: center;
   color: red;
-  margin-top: 1rem;
+  font-weight: bold;
 }
 
-.hint {
-  color: #666;
-  margin-top: 1rem;
+.empty {
+  text-align: center;
+  color: #7f8c8d;
+  font-style: italic;
 }

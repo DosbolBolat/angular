@@ -1,13 +1,25 @@
 <div class="pokemon-list">
-    <h3>Pokémon List</h3>
-    <button (click)="load()">Load Pokémon</button>
-    
-    <p *ngIf="loading" >Loading...</p>
-    <p *ngIf="error"  class="error">{{ error }}</p>
-    
-    <ng-container *ngIf="listBehaviour.listData$ | async as pokemon">
-        <ul *ngIf="pokemon.length > 0">
-            <li *ngFor="let p of pokemon">{{ p.name }}</li>
-        </ul>
-    </ng-container>
+  <h3>Pokémon List</h3>
+
+  <button (click)="load()" class="load-btn">Load Pokémon</button>
+
+  <div class="search-box">
+    <input
+      type="text"
+      placeholder="🔍 Search Pokémon..."
+      (input)="onSearch($event.target.value)"
+    />
+  </div>
+
+  <p *ngIf="loading" class="loading">Loading...</p>
+  <p *ngIf="error" class="error">{{ error }}</p>
+
+  <ng-container *ngIf="listBehaviour | async as pokemon">
+    <ul *ngIf="pokemon.length > 0">
+      <li *ngFor="let p of pokemon">{{ p.name }}</li>
+    </ul>
+    <p *ngIf="pokemon.length === 0 && !loading && !error" class="empty">
+      No Pokémon found 🐾
+    </p>
+  </ng-container>
 </div>
